@@ -93,6 +93,15 @@ var memberPic = '';
     }
 
     function readImage(input, pic) {
+        /*
+         this is for simple displaying and
+         preventing to make maesh by excluding
+         any server side script
+         if no solution will exsist then
+         a server upload script will be added
+         which upload user data to server
+         and then get a user uploaded profile image
+        */
         var files = $(input).prop('files');
         if (files && files[0]) {
             var reader = new FileReader();
