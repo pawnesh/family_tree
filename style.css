@@ -1,0 +1,48 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 20 Mar, 2014, 10:56:05 AM
+    Author     : poornendra
+*/
+
+#pk-memberForm {
+    background: none repeat scroll 0 0 #636363;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index:1000;
+    display:none;
+}
+#pk-memberForm table {
+    background: none repeat scroll 0 0 #FFFFFF;
+    left: 34%;
+    padding: 30px;
+    position: relative;
+    top: 23%;
+    width: 461px;
+    box-shadow: 0 0 23px #4C4B4B;
+}
+#pk-memberForm #pk-cross{
+    left:34%;
+    top:23%;
+    padding-left:446px;
+    position: absolute;
+    z-index:10000;
+    cursor:pointer;
+}
+.member {
+    height: 107px;
+    overflow: hidden;
+    width: 113px;
+    border: 1px solid #969696;
+}
+
+.member img {
+    padding-top: 10px;
+    width: 58px;
+}
