@@ -93,15 +93,15 @@ var memberPic = '';
     }
 
     function readImage(input, pic) {
-
-        if (input.files && input.files[0]) {
+        var files = $(input).prop('files');
+        if (files && files[0]) {
             var reader = new FileReader();
 
             reader.onload = function(e) {
                 $(pic).attr('src', e.target.result);
             }
 
-            reader.readAsDataURL(input.files[0]);
+            reader.readAsDataURL(files[0]);
         }
     }
 
