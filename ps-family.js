@@ -39,6 +39,14 @@ var memberPic = '';
         $('<tr>').html('<td><label>Name</label></td><td><input type="text" value="" id="pk-name"/></td>').appendTo(table);
         $('<tr>').html(' <td><label>Gender</label></td><td><select id="pk-gender"><option value="Male">Male</option><option value="Female">Female</option></select></td>').appendTo(table);
         $('<tr>').html('<td><label>Age</label></td><td><input type="text" value="" id="pk-age"></td>').appendTo(table);
+        $('<tr>').html(' <td><label>Relation</label></td><td><select id="pk-relation">\n\\n\
+        <option value="Self">Self</option>\n\
+<option value="Mother">Mother</option>\n\
+<option value="Father">Father</option>\n\\n\
+<option value="Father">Sibling</option>\n\\n\
+<option value="Father">Child</option>\n\\n\
+<option value="Father">Spouse</option>\n\\n\
+</select></td>').appendTo(table);
         $('<tr>').html('<td><label>Upload Photo</label></td><td><input type="file" id="pk-picture"></td>').appendTo(table);
         var buttonSave = $('<input>').attr('type', 'button');
         $(buttonSave).attr('value', 'Save');
@@ -60,6 +68,7 @@ var memberPic = '';
         memberGender = $('#pk-gender').val();
         memberAge = $('#pk-age').val();
         memberPic = $('#pk-picture');
+        memberRelation = $('#pk-relation');
         // after saving
         addMember();
         closeForm();
@@ -83,6 +92,10 @@ var memberPic = '';
     }
     function addMember() {
         var div = $('<div>').attr('class', 'member');
+        $(div).attr('data-name', memberName);
+        $(div).attr('data-gender', memberGender);
+        $(div).attr('data-age', memberAge);
+        $(div).attr('data-relation', memberRelation);
         $(treeGround).append(div);
         var center = $('<center>').appendTo(div);
         var pic = $('<img>').attr('src', 'images/profile.png');
@@ -93,15 +106,6 @@ var memberPic = '';
     }
 
     function readImage(input, pic) {
-        /*
-         this is for simple displaying and
-         preventing to make maesh by excluding
-         any server side script
-         if no solution will exsist then
-         a server upload script will be added
-         which upload user data to server
-         and then get a user uploaded profile image
-        */
         var files = $(input).prop('files');
         if (files && files[0]) {
             var reader = new FileReader();
