@@ -53,3 +53,9 @@ and open the template in the editor.
     position: relative;
     width: 100%;
 }
+#pk-family-tree{
+    background: #969696;
+    overflow:auto;
+    height:500px;
+    width:100px;
+}

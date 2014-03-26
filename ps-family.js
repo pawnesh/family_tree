@@ -87,6 +87,7 @@ var memberHeight = 107;
         $(member).attr('class', 'tree-ground');
         $(member).appendTo(rootDiv);
         treeGround = member;
+        $(treeGround).draggable();
     }
 
     function addMemberButton() {
