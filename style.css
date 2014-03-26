@@ -40,9 +40,16 @@ and open the template in the editor.
     overflow: hidden;
     width: 113px;
     border: 1px solid #969696;
+    position: absolute;
 }
 
 .member img {
     padding-top: 10px;
     height:65px;
+}
+
+.tree-ground {
+    height: 90%;
+    position: relative;
+    width: 100%;
 }
