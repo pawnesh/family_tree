@@ -14,7 +14,7 @@ var memberPic = '';
 var memberRelation = '';
 var familyTree = new Array();
 var memberId = 0;
-var selectedMember;// refrence to selected member
+var selectedMember = null;// refrence to selected member
 var self = true;
 var memberSpace = 92;
 var memberWidth = 115;
@@ -31,7 +31,7 @@ var memberHeight = 107;
     }
 
     function init() {
-       // addMemberButton();
+        // addMemberButton();
         addBreadingGround();
         createNewMemberForm();
         displayFirstForm();
@@ -87,7 +87,7 @@ var memberHeight = 107;
         $(member).attr('class', 'tree-ground');
         $(member).appendTo(rootDiv);
         treeGround = member;
-        $(treeGround).draggable();
+        // $(treeGround).draggable();
     }
 
     function addMemberButton() {
@@ -97,11 +97,12 @@ var memberHeight = 107;
         $(member).appendTo(rootDiv);
     }
     function displayForm(input) {
-        if (input != null)
+        if ($(newMemberForm).css('display') == 'none') {
             selectedMember = input;
-        self = false;
-        $('.relations').css('display', '');
-        $(newMemberForm).css('display', 'block');
+            self = false;
+            $('.relations').css('display', '');
+            $(newMemberForm).css('display', 'block');
+        }
     }
     function displayFirstForm() {
         selectedMember = null;
@@ -110,58 +111,57 @@ var memberHeight = 107;
         $(newMemberForm).css('display', 'block');
     }
     function addMember() {
-        var div = $('<div>').attr('class', 'member');
-        var xposition = 500;
-        var yposition = 200;
+        var li = $('<li>').html('<a href="#">' + memberName + '</a>');
+        $(li).attr('data-name', memberName);
+        $(li).attr('data-gender', memberGender);
+        $(li).attr('data-age', memberAge);
+        $(li).attr('data-relation', memberRelation);
+        $(li).click(function() {
+            displayForm(this);
+        })
+
         if (selectedMember != null) {
-            if (memberRelation == 'Spouse') {
-                // spouse will be added in right
-                xposition = parseInt($(selectedMember).attr('data-x')) + memberWidth + memberSpace;
-                yposition = parseInt($(selectedMember).attr('data-y'));
-            }
-            // child will be added below
-            if (memberRelation == 'Child') {
-                xposition = parseInt($(selectedMember).attr('data-x')) - memberWidth - memberSpace;
-                yposition = parseInt($(selectedMember).attr('data-y')) + memberHeight + memberSpace;
-            }
-            // sibling will be added consicutivly just higer above to current position
-            if (memberRelation == 'Sibling') {
-                xposition = $(selectedMember).attr('data-x') + (memberWidth*2) + (memberSpace*2);
-                yposition = $(selectedMember).attr('data-y') - memberHeight - memberSpace;
-            }
-            // father will be added above left
-            if (memberRelation == 'Father') {
-                xposition = $(selectedMember).attr('data-x') - memberWidth - memberSpace;
-                yposition = $(selectedMember).attr('data-y') -(memberHeight*2) - (memberSpace*2);
-            }
-            // mother will be added above right
             if (memberRelation == 'Mother') {
-                xposition = $(selectedMember).attr('data-x')  - memberWidth - memberSpace;
-                yposition = $(selectedMember).attr('data-y') - (memberHeight*2) - (memberSpace*2);
-                // from father prespective mother is wife
-                xposition = xposition + memberWidth + memberSpace;
+            
+
             }
+            if (memberRelation == 'Spouse') {
+              
+
+            }
+            if (memberRelation == 'Child') {
+                var toAddUL = $(selectedMember).find('UL');
+                if ($(toAddUL).prop('tagName') == 'UL') {
+                    $(toAddUL).append(li);
+                } else {
+                    var ul = $('<ul>').append(li);
+                    $(selectedMember).append(ul);
+                }
+
+            }
+            if (memberRelation == 'Sibling') {
+                $(selectedMember).parent().append(li);
+
+            }
+            if (memberRelation == 'Father') {
+                var parent = $(selectedMember).parent();
+                var parentParent = $(parent).parent();
+                var ul = $('<ul>').append(li);
+                $(parent).appendTo(li);
+                $(parentParent).append(ul);
+            }
+        } else {
+            var ul = $('<ul>').append(li);
+            $(treeGround).append(ul);
+
         }
 
-        $(div).attr('data-name', memberName);
-        $(div).attr('data-gender', memberGender);
-        $(div).attr('data-age', memberAge);
-        $(div).attr('data-relation', memberRelation);
-        $(div).attr('data-id', memberId);
-        $(div).attr('data-x', xposition);
-        $(div).attr('data-y', yposition);
-        $(div).css('left', xposition);
-        $(div).css('top', yposition);
-        $(div).click(function() {
-            displayForm(this)
-        });
-        $(treeGround).append(div);
-        var center = $('<center>').appendTo(div);
-        var pic = $('<img>').attr('src', 'images/profile.png');
-        $(pic).appendTo(center);
-        $(center).append($('<br>'));
-        $('<span>').html(memberName).appendTo(center);
-        readImage(memberPic, pic);
+        // var center = $('<center>').appendTo(div);
+        //  var pic = $('<img>').attr('src', 'images/profile.png');
+        //  $(pic).appendTo(center);
+        //  $(center).append($('<br>'));
+        //  $('<span>').html(memberName).appendTo(center);
+        // readImage(memberPic, pic);
     }
 
     function readImage(input, pic) {
