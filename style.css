@@ -18,6 +18,28 @@ and open the template in the editor.
     z-index:1000;
     display:none;
 }
+#pk-member-details {
+    background: none repeat scroll 0 0 #636363;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index:1000;
+    display:none;
+}
+#pk-member-details table {
+    background: none repeat scroll 0 0 #FFFFFF;
+    left: 34%;
+    padding: 30px;
+    position: relative;
+    top: 23%;
+    width: 461px;
+    box-shadow: 0 0 23px #4C4B4B;
+}
+#pk-member-details img{
+    height: 114px;
+}
 #pk-memberForm table {
     background: none repeat scroll 0 0 #FFFFFF;
     left: 34%;
@@ -27,7 +49,7 @@ and open the template in the editor.
     width: 461px;
     box-shadow: 0 0 23px #4C4B4B;
 }
-#pk-memberForm #pk-cross{
+ .pk-cross{
     left:34%;
     top:23%;
     padding-left:446px;
@@ -43,7 +65,7 @@ and open the template in the editor.
     position: absolute;
 }
 
-.member img {
+center img {
     padding-top: 10px;
     height:65px;
 }

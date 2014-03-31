@@ -4,23 +4,25 @@
  * and open the template in the editor.
  */
 
-var rootDiv = '';
-var treeGround = '';
-var newMemberForm = '';
-var memberName = '';
-var memberGender = '';
-var memberAge = '';
-var memberPic = '';
-var memberRelation = '';
-var familyTree = new Array();
-var memberId = 0;
-var selectedMember = null;// refrence to selected member
-var self = true;
-var memberSpace = 92;
-var memberWidth = 115;
-var memberHeight = 107;
 
 (function($) {
+    var rootDiv = '';
+    var treeGround = '';
+    var newMemberForm = '';
+    var memberName = '';
+    var memberGender = '';
+    var memberAge = '';
+    var memberPic = '';
+    var memberRelation = '';
+    var familyTree = new Array();
+    var memberId = 0;
+    var selectedMember = null;// refrence to selected member
+    var self = true;
+    var memberSpace = 92;
+    var memberWidth = 115;
+    var memberHeight = 107;
+    var memberDetails = null;
+    
     $.fn.pk_family = function(options) {
         rootDiv = this;
         init();
@@ -34,12 +36,13 @@ var memberHeight = 107;
         // addMemberButton();
         addBreadingGround();
         createNewMemberForm();
+        member_details();
         displayFirstForm();
     }
 
     function createNewMemberForm() {
         var memberForm = $('<div>').attr('id', 'pk-memberForm');
-        var cross = $('<div>').attr('id', 'pk-cross');
+        var cross = $('<div>').attr('class', 'pk-cross');
         $(cross).text('X');
         $(cross).click(closeForm);
         $(cross).appendTo(memberForm);
@@ -67,6 +70,11 @@ var memberHeight = 107;
         $(newMemberForm).appendTo(rootDiv);
     }
 
+    function member_details() {
+       memberDetails = $('<div>').attr('id', 'pk-member-details');
+        $(memberDetails).appendTo(rootDiv);
+    }
+    
     function closeForm() {
         $(newMemberForm).css('display', 'none');
     }
@@ -111,22 +119,30 @@ var memberHeight = 107;
         $(newMemberForm).css('display', 'block');
     }
     function addMember() {
-        var li = $('<li>').html('<a href="#">' + memberName + '</a>');
+        var aLink = $('<a>').attr('href', '#');
+        var li = $('<li>').append(aLink);
         $(li).attr('data-name', memberName);
         $(li).attr('data-gender', memberGender);
         $(li).attr('data-age', memberAge);
         $(li).attr('data-relation', memberRelation);
-        $(li).click(function() {
-            displayForm(this);
+        $(li).mousedown(function(event) {
+            switch (event.which) {
+                case 1:// left mouse
+                    displayForm(this);
+                    break;
+                case 3: // right mouse button
+                    displayData(this);
+                    break;
+            }
         })
 
         if (selectedMember != null) {
             if (memberRelation == 'Mother') {
-            
+
 
             }
             if (memberRelation == 'Spouse') {
-              
+
 
             }
             if (memberRelation == 'Child') {
@@ -156,14 +172,30 @@ var memberHeight = 107;
 
         }
 
-        // var center = $('<center>').appendTo(div);
-        //  var pic = $('<img>').attr('src', 'images/profile.png');
-        //  $(pic).appendTo(center);
-        //  $(center).append($('<br>'));
-        //  $('<span>').html(memberName).appendTo(center);
-        // readImage(memberPic, pic);
+        var center = $('<center>').appendTo(aLink);
+        var pic = $('<img>').attr('src', 'images/profile.png');
+        $(pic).appendTo(center);
+        $(center).append($('<br>'));
+        $('<span>').html(memberName).appendTo(center);
+        readImage(memberPic, pic);
     }
 
+// will show existing user info
+    function displayData(element) {
+        var innerContent = $('<table>');
+        var content = '';
+        var cross = $('<div>').attr('class', 'pk-cross');
+        $(cross).text('X');
+        $(cross).click(function(){$(memberDetails).css('display','none') });
+        $(cross).appendTo(memberDetails);
+        content = content+'<tr><td>Name</td><td>' + $(element).attr('data-name') + '</td></tr>';
+        content = content+'<tr><td>Age</td><td>' + $(element).attr('data-age') + '</td></tr>';
+        content = content+'<tr><td>Gender</td><td>' + $(element).attr('data-gender') + '</td></tr>';
+        content = content+'<tr><td colspan="2" style="text-align:center;"><img src="'+$(element).find('img').attr('src')+'"/></td></tr>';
+        $(innerContent).html(content);
+        $(memberDetails).append(innerContent);
+        $(memberDetails).css('display','block');
+    }
     function readImage(input, pic) {
         var files = $(input).prop('files');
         if (files && files[0]) {
