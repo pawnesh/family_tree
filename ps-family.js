@@ -22,7 +22,7 @@
     var memberWidth = 115;
     var memberHeight = 107;
     var memberDetails = null;
-    
+
     $.fn.pk_family = function(options) {
         rootDiv = this;
         init();
@@ -71,10 +71,10 @@
     }
 
     function member_details() {
-       memberDetails = $('<div>').attr('id', 'pk-member-details');
+        memberDetails = $('<div>').attr('id', 'pk-member-details');
         $(memberDetails).appendTo(rootDiv);
     }
-    
+
     function closeForm() {
         $(newMemberForm).css('display', 'none');
     }
@@ -174,9 +174,15 @@
 
         var center = $('<center>').appendTo(aLink);
         var pic = $('<img>').attr('src', 'images/profile.png');
+        var extraData = "";
+        if (memberGender == "Male") {
+            extraData = "(M)";
+        } else {
+            extraData = "(F)";
+        }
         $(pic).appendTo(center);
         $(center).append($('<br>'));
-        $('<span>').html(memberName).appendTo(center);
+        $('<span>').html(memberName + " " + extraData).appendTo(center);
         readImage(memberPic, pic);
     }
 
@@ -186,15 +192,17 @@
         var content = '';
         var cross = $('<div>').attr('class', 'pk-cross');
         $(cross).text('X');
-        $(cross).click(function(){$(memberDetails).css('display','none') });
+        $(cross).click(function() {
+            $(memberDetails).css('display', 'none')
+        });
         $(cross).appendTo(memberDetails);
-        content = content+'<tr><td>Name</td><td>' + $(element).attr('data-name') + '</td></tr>';
-        content = content+'<tr><td>Age</td><td>' + $(element).attr('data-age') + '</td></tr>';
-        content = content+'<tr><td>Gender</td><td>' + $(element).attr('data-gender') + '</td></tr>';
-        content = content+'<tr><td colspan="2" style="text-align:center;"><img src="'+$(element).find('img').attr('src')+'"/></td></tr>';
+        content = content + '<tr><td>Name</td><td>' + $(element).attr('data-name') + '</td></tr>';
+        content = content + '<tr><td>Age</td><td>' + $(element).attr('data-age') + '</td></tr>';
+        content = content + '<tr><td>Gender</td><td>' + $(element).attr('data-gender') + '</td></tr>';
+        content = content + '<tr><td colspan="2" style="text-align:center;"><img src="' + $(element).find('img').attr('src') + '"/></td></tr>';
         $(innerContent).html(content);
         $(memberDetails).append(innerContent);
-        $(memberDetails).css('display','block');
+        $(memberDetails).css('display', 'block');
     }
     function readImage(input, pic) {
         var files = $(input).prop('files');
