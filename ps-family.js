@@ -195,6 +195,7 @@
         $(cross).click(function() {
             $(memberDetails).css('display', 'none')
         });
+        $(memberDetails).empty();
         $(cross).appendTo(memberDetails);
         content = content + '<tr><td>Name</td><td>' + $(element).attr('data-name') + '</td></tr>';
         content = content + '<tr><td>Age</td><td>' + $(element).attr('data-age') + '</td></tr>';
