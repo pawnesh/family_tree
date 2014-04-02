@@ -17,18 +17,21 @@ How to:
 -----------------------------------------------------------
 1. You have to include following file
 
- <link rel="stylesheet" href="jquery-ui.css">
- <script src="jquery-1.11.0.js"></script>
- <script src="jquery-ui.js"></script>
- <script src="ps-family.js"></script>
- <link rel="stylesheet" href="style.css"/>
-
+ <![CDATA[
+    <link rel="stylesheet" href="jquery-ui.css">
+    <script src="jquery-1.11.0.js"></script>
+    <script src="jquery-ui.js"></script>
+    <script src="ps-family.js"></script>
+    <link rel="stylesheet" href="style.css"/>
+]]>
 2. Create div in which tree will be display
-    <div id="pk-family-tree"></div>
-
+     <![CDATA[
+        <div id="pk-family-tree"></div>
+    ]]>
 3. Include below query just after the above div 
+    <![CDATA[
      <script>
             $('#pk-family-tree').pk_family();
      </script>
-
+    ]]>
 4. Done. At start it will ask you for entering first member.
