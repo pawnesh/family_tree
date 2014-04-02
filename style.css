@@ -9,7 +9,7 @@ and open the template in the editor.
 */
 
 #pk-memberForm {
-    background: none repeat scroll 0 0 #636363;
+    background: url("images/back.png") repeat;
     height: 100%;
     left: 0;
     position: absolute;
@@ -19,7 +19,7 @@ and open the template in the editor.
     display:none;
 }
 #pk-member-details {
-    background: none repeat scroll 0 0 #636363;
+    background: url("images/back.png") repeat;;
     height: 100%;
     left: 0;
     position: absolute;
@@ -49,6 +49,10 @@ and open the template in the editor.
     width: 461px;
     box-shadow: 0 0 23px #4C4B4B;
 }
+#treeGround{
+    width: 10000px;
+    cursor:move;
+}
  .pk-cross{
     left:34%;
     top:23%;
@@ -71,7 +75,7 @@ center img {
 }
 
 #pk-family-tree{
-    overflow:auto;
+    overflow:hidden;
     height:500px;
     width:1000px;
 }
@@ -86,6 +90,7 @@ center img {
     transition: all 0.5s;
     -webkit-transition: all 0.5s;
     -moz-transition: all 0.5s;
+    cursor: move;
 }
 
 .tree-ground li {
@@ -97,8 +102,43 @@ center img {
     transition: all 0.5s;
     -webkit-transition: all 0.5s;
     -moz-transition: all 0.5s;
+    cursor:pointer;
 }
 
+#pk-popmenu {
+    padding: 0;
+    width: 148px;
+    display:none;
+    position: absolute;
+}
+
+#pk-popmenu ul {
+    list-style: none outside none;
+    padding: 7px;
+    width: 136px;
+    border-color: #C4C4C4;
+    border-image: none;
+    border-right: 1px solid #C4C4C4;
+    border-style: solid;
+    border-width: 0 1px 1px;
+    padding: 0px;
+    padding-left: 0;
+    width: 136px;
+}
+#pk-popmenu ul li{
+    border-top: 1px solid #C4C4C4;
+    padding: 4px 0 4px 10px;
+    background: #DDDDDD;
+    color:#333333;
+    
+}
+#pk-popmenu ul li:hover{
+    background: #ACACAC;
+}
+
+/*
+ below css are from http://thecodeplayer.com/walkthrough/css3-family-tree
+*/
 /*We will use ::before and ::after to draw the connectors*/
 
 .tree-ground li::before, .tree-ground li::after{

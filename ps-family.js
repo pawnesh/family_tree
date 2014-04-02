@@ -22,6 +22,7 @@
     var memberWidth = 115;
     var memberHeight = 107;
     var memberDetails = null;
+    var options_menu = null;
 
     $.fn.pk_family = function(options) {
         rootDiv = this;
@@ -37,9 +38,41 @@
         addBreadingGround();
         createNewMemberForm();
         member_details();
+        createOptionsMenu();
         displayFirstForm();
+        document.oncontextmenu = function() {
+            return false;
+        };
     }
 
+    function createOptionsMenu() {
+        var div = $('<div>').attr('id', 'pk-popmenu');
+        var ul = $('<ul>');
+        var liAdd = $('<li>').html('Add Member').appendTo(ul);
+        liAdd.click(function(event) {
+            displayForm();
+            $(options_menu).css('display', 'none');
+        });
+        var liDisplay = $('<li>').html('View Details').appendTo(ul);
+        liDisplay.click(function(event) {
+            displayData(selectedMember);
+            $(options_menu).css('display', 'none');
+        });
+        var liRemove = $('<li>').html('Remove Member').appendTo(ul);
+        liRemove.click(function(event) {
+            //displayForm(this);
+            $(options_menu).css('display', 'none');
+        });
+        var liCancel = $('<li>').html('Cancel').appendTo(ul);
+        liCancel.click(function(event) {
+            //displayForm(this);
+            $(options_menu).css('display', 'none');
+        });
+        $(div).append(ul);
+        options_menu = div;
+        $(options_menu).appendTo(rootDiv);
+
+    }
     function createNewMemberForm() {
         var memberForm = $('<div>').attr('id', 'pk-memberForm');
         var cross = $('<div>').attr('class', 'pk-cross');
@@ -85,6 +118,9 @@
         memberAge = $('#pk-age').val();
         memberPic = $('#pk-picture');
         memberRelation = $('#pk-relation').val();
+        //clear exsiting data from form
+        $('#pk-name').val('');
+        $('#pk-age').val('');
         // after saving
         addMember();
         closeForm();
@@ -95,7 +131,7 @@
         $(member).attr('class', 'tree-ground');
         $(member).appendTo(rootDiv);
         treeGround = member;
-        // $(treeGround).draggable();
+        $(treeGround).draggable();
     }
 
     function addMemberButton() {
@@ -105,11 +141,16 @@
         $(member).appendTo(rootDiv);
     }
     function displayForm(input) {
-        if ($(newMemberForm).css('display') == 'none') {
+        $('.relations').css('display', '');
+        $(newMemberForm).css('display', 'block');
+    }
+    function displayPopMenu(input, event) {
+        if ($(options_menu).css('display') == 'none') {
             selectedMember = input;
             self = false;
-            $('.relations').css('display', '');
-            $(newMemberForm).css('display', 'block');
+            $(options_menu).css('display', 'block');
+            $(options_menu).css('top', event.clientY);
+            $(options_menu).css('left', event.clientX);
         }
     }
     function displayFirstForm() {
@@ -120,21 +161,31 @@
     }
     function addMember() {
         var aLink = $('<a>').attr('href', '#');
+        var center = $('<center>').appendTo(aLink);
+        var pic = $('<img>').attr('src', 'images/profile.png');
+        var extraData = "";
+        if (memberGender == "Male") {
+            extraData = "(M)";
+        } else {
+            extraData = "(F)";
+        }
+        $(pic).appendTo(center);
+        $(center).append($('<br>'));
+        $('<span>').html(memberName + " " + extraData).appendTo(center);
+        readImage(memberPic, pic);
+
         var li = $('<li>').append(aLink);
         $(li).attr('data-name', memberName);
         $(li).attr('data-gender', memberGender);
         $(li).attr('data-age', memberAge);
         $(li).attr('data-relation', memberRelation);
         $(li).mousedown(function(event) {
-            switch (event.which) {
-                case 1:// left mouse
-                    displayForm(this);
-                    break;
-                case 3: // right mouse button
-                    displayData(this);
-                    break;
+            if (event.button == 2) {
+                displayPopMenu(this, event);
+                return false;
             }
-        })
+            return true;
+        });
 
         if (selectedMember != null) {
             if (memberRelation == 'Mother') {
@@ -146,7 +197,7 @@
 
             }
             if (memberRelation == 'Child') {
-                var toAddUL = $(selectedMember).find('UL');
+                var toAddUL = $(selectedMember).find('UL:first');
                 if ($(toAddUL).prop('tagName') == 'UL') {
                     $(toAddUL).append(li);
                 } else {
@@ -171,19 +222,6 @@
             $(treeGround).append(ul);
 
         }
-
-        var center = $('<center>').appendTo(aLink);
-        var pic = $('<img>').attr('src', 'images/profile.png');
-        var extraData = "";
-        if (memberGender == "Male") {
-            extraData = "(M)";
-        } else {
-            extraData = "(F)";
-        }
-        $(pic).appendTo(center);
-        $(center).append($('<br>'));
-        $('<span>').html(memberName + " " + extraData).appendTo(center);
-        readImage(memberPic, pic);
     }
 
 // will show existing user info
@@ -216,5 +254,9 @@
 
             reader.readAsDataURL(files[0]);
         }
+    }
+
+    function optionsMenu(event) {
+
     }
 }(jQuery));
