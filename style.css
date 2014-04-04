@@ -125,11 +125,16 @@ center img {
     padding-left: 0;
     width: 136px;
 }
+
+#pk-popmenu ul li{
+    font-family: arial, verdana, tahoma;
+}
 #pk-popmenu ul li{
     border-top: 1px solid #C4C4C4;
     padding: 4px 0 4px 10px;
     background: #DDDDDD;
     color:#333333;
+    font-size: 13px;
     
 }
 #pk-popmenu ul li:hover{

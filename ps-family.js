@@ -48,21 +48,25 @@
     function createOptionsMenu() {
         var div = $('<div>').attr('id', 'pk-popmenu');
         var ul = $('<ul>');
+        // add member button
         var liAdd = $('<li>').html('Add Member').appendTo(ul);
         liAdd.click(function(event) {
             displayForm();
             $(options_menu).css('display', 'none');
         });
+        // view member button
         var liDisplay = $('<li>').html('View Details').appendTo(ul);
         liDisplay.click(function(event) {
             displayData(selectedMember);
             $(options_menu).css('display', 'none');
         });
+        // remove member button
         var liRemove = $('<li>').html('Remove Member').appendTo(ul);
         liRemove.click(function(event) {
-            //displayForm(this);
+            removeMember(selectedMember);
             $(options_menu).css('display', 'none');
         });
+        // cancel the pop menu
         var liCancel = $('<li>').html('Cancel').appendTo(ul);
         liCancel.click(function(event) {
             //displayForm(this);
@@ -121,6 +125,7 @@
         //clear exsiting data from form
         $('#pk-name').val('');
         $('#pk-age').val('');
+        $('#pk-relation').val('');
         // after saving
         addMember();
         closeForm();
@@ -158,6 +163,7 @@
         self = true;
         $('.relations').css('display', 'none');
         $(newMemberForm).css('display', 'block');
+        $('#pk-relation').val('Main');
     }
     function addMember() {
         var aLink = $('<a>').attr('href', '#');
@@ -255,8 +261,24 @@
             reader.readAsDataURL(files[0]);
         }
     }
-
-    function optionsMenu(event) {
-
+    
+    function removeMember(member){
+        if($(member).attr('data-relation') == 'Sibling'){
+            $(member).remove();
+        }
+        if($(member).attr('data-relation') == 'Child'){
+            var cLen = $(member).parent().children('li').length;
+            if(cLen > 1)
+                $(member).remove();
+            else{
+                $(member).parent().remove();
+            }
+        }
+         if($(member).attr('data-relation') == 'Father'){
+            var child = $(member).children('ul');
+            var parent = $(member).parent().parent();
+            $(child).appendTo(parent);
+            $(member).parent().remove();
+        }
     }
 }(jQuery));
