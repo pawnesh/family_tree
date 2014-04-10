@@ -53,7 +53,7 @@ and open the template in the editor.
     width: 10000px;
     cursor:move;
 }
- .pk-cross{
+.pk-cross{
     left:34%;
     top:23%;
     padding-left:446px;
@@ -135,12 +135,24 @@ center img {
     background: #DDDDDD;
     color:#333333;
     font-size: 13px;
-    
+
 }
 #pk-popmenu ul li:hover{
     background: #ACACAC;
 }
 
+.spouse:before {
+    border-top: 1px solid #CCCCCC;
+    content: "";
+    display: block;
+    left: -41px;
+    position: relative;
+    top: 50px;
+    width: 31px;
+}
+.spouse{
+    margin-left:28px;
+}
 /*
  below css are from http://thecodeplayer.com/walkthrough/css3-family-tree
 */

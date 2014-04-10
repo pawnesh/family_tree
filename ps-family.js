@@ -174,6 +174,7 @@
             extraData = "(M)";
         } else {
             extraData = "(F)";
+            $(pic).attr('src','images/profile-f.png');
         }
         $(pic).appendTo(center);
         $(center).append($('<br>'));
@@ -196,11 +197,10 @@
         if (selectedMember != null) {
             if (memberRelation == 'Mother') {
 
-
             }
             if (memberRelation == 'Spouse') {
-
-
+                $(aLink).attr('class','spouse');
+                $(aLink).appendTo(selectedMember);
             }
             if (memberRelation == 'Child') {
                 var toAddUL = $(selectedMember).find('UL:first');
@@ -261,20 +261,20 @@
             reader.readAsDataURL(files[0]);
         }
     }
-    
-    function removeMember(member){
-        if($(member).attr('data-relation') == 'Sibling'){
+
+    function removeMember(member) {
+        if ($(member).attr('data-relation') == 'Sibling') {
             $(member).remove();
         }
-        if($(member).attr('data-relation') == 'Child'){
+        if ($(member).attr('data-relation') == 'Child') {
             var cLen = $(member).parent().children('li').length;
-            if(cLen > 1)
+            if (cLen > 1)
                 $(member).remove();
-            else{
+            else {
                 $(member).parent().remove();
             }
         }
-         if($(member).attr('data-relation') == 'Father'){
+        if ($(member).attr('data-relation') == 'Father') {
             var child = $(member).children('ul');
             var parent = $(member).parent().parent();
             $(child).appendTo(parent);
