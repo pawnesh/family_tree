@@ -199,8 +199,10 @@
 
             }
             if (memberRelation == 'Spouse') {
+                var first = $(selectedMember).find('a:first');
                 $(aLink).attr('class','spouse');
-                $(aLink).appendTo(selectedMember);
+                $(selectedMember).prepend(aLink);
+                $(selectedMember).prepend(first);
             }
             if (memberRelation == 'Child') {
                 var toAddUL = $(selectedMember).find('UL:first');
