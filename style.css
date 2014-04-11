@@ -162,10 +162,10 @@ center img {
     content: '';
     position: absolute; top: 0; right: 50%;
     border-top: 1px solid #ccc;
-    width: 50%; height: 20px;
+    width: 70%; height: 20px;
 }
 .tree-ground li::after{
-    right: auto; left: 50%;
+    right: auto; left: 30%;
     border-left: 1px solid #ccc;
 }
 

@@ -182,44 +182,44 @@
         readImage(memberPic, pic);
 
         var li = $('<li>').append(aLink);
-        $(li).attr('data-name', memberName);
-        $(li).attr('data-gender', memberGender);
-        $(li).attr('data-age', memberAge);
-        $(li).attr('data-relation', memberRelation);
-        $(li).mousedown(function(event) {
+        $(aLink).attr('data-name', memberName);
+        $(aLink).attr('data-gender', memberGender);
+        $(aLink).attr('data-age', memberAge);
+        $(aLink).attr('data-relation', memberRelation);
+        $(aLink).mousedown(function(event) {
             if (event.button == 2) {
                 displayPopMenu(this, event);
                 return false;
             }
             return true;
         });
-
+        var sParent = $(selectedMember).parent(); // super parent
         if (selectedMember != null) {
             if (memberRelation == 'Mother') {
 
             }
             if (memberRelation == 'Spouse') {
-                var first = $(selectedMember).find('a:first');
                 $(aLink).attr('class','spouse');
-                $(selectedMember).prepend(aLink);
-                $(selectedMember).prepend(first);
+                var toPrepend = $(sParent).find('a:first');
+                $(sParent).prepend(aLink);
+                $(sParent).prepend(toPrepend);
             }
             if (memberRelation == 'Child') {
-                var toAddUL = $(selectedMember).find('UL:first');
+                var toAddUL = $(sParent).find('UL:first');
                 if ($(toAddUL).prop('tagName') == 'UL') {
                     $(toAddUL).append(li);
                 } else {
                     var ul = $('<ul>').append(li);
-                    $(selectedMember).append(ul);
+                    $(sParent).append(ul);
                 }
 
             }
             if (memberRelation == 'Sibling') {
-                $(selectedMember).parent().append(li);
+                $(sParent).parent().append(li);
 
             }
             if (memberRelation == 'Father') {
-                var parent = $(selectedMember).parent();
+                var parent = $(sParent).parent();
                 var parentParent = $(parent).parent();
                 var ul = $('<ul>').append(li);
                 $(parent).appendTo(li);
@@ -281,6 +281,9 @@
             var parent = $(member).parent().parent();
             $(child).appendTo(parent);
             $(member).parent().remove();
+        }
+        if ($(member).attr('data-relation') == 'Spouse') {
+            $(member).remove();
         }
     }
 }(jQuery));
