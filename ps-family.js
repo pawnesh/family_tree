@@ -23,16 +23,73 @@
     var memberHeight = 107;
     var memberDetails = null;
     var options_menu = null;
+    var object = new Object();
+    var rut = null;
+    var parent = null;
 
     $.fn.pk_family = function(options) {
-        rootDiv = this;
-        init();
         if (rootDiv == null) {
             // error message in console
             jQuery.error('wrong id given');
         }
+        rootDiv = this;
+        init();
+    }
+    // function to send data to server
+    $.fn.pk_family_send = function(options) {
+        if (rootDiv == null) {
+            // error message in console
+            jQuery.error('wrong id given');
+            return;
+        }
+        createSendURL();
     }
 
+    function createSendURL() {
+        rut = $(treeGround).find("ul:first");
+        parent = object;
+        object = createJson(rut);
+        alert(JSON.stringify(object));
+    }
+
+    function createJson(root) {
+        var thisObj = [];
+        if ($(root).prop('tagName') == "UL") {
+            var item = {};
+            var i = 0;
+            $(root).children('li').each(function() {
+                item["li" + i] = createJson(this);
+                i++;
+            });
+            thisObj.push(item);
+            return thisObj;
+        }
+        if ($(root).prop('tagName') == "LI") {
+            var item = {};
+            var i = 0;
+            $(root).children('a').each(function() {
+                var m = "a" + i;
+                item[m] = {};
+                item[m]["name"] = $(this).attr("data-name");
+                item[m]["age"] = $(this).attr("data-age");
+                item[m]["gender"] = $(this).attr("data-gender");
+                try {
+                    item[m]["relation"] = $(this).attr("data-relation");
+                } catch (e) {
+                    item[m]["relation"] = "self";
+                }
+                item[m]["pic"] = $(this).find('img:first').attr("src");
+                i++;
+            });
+
+            if ($(root).find('ul:first').length) {
+                parent = thisObj;
+                item["ul"] = createJson($(root).find('ul:first'));
+            }
+            thisObj.push(item);
+            return thisObj;
+        }
+    }
     function init() {
         // addMemberButton();
         addBreadingGround();
@@ -174,7 +231,7 @@
             extraData = "(M)";
         } else {
             extraData = "(F)";
-            $(pic).attr('src','images/profile-f.png');
+            $(pic).attr('src', 'images/profile-f.png');
         }
         $(pic).appendTo(center);
         $(center).append($('<br>'));
@@ -199,7 +256,7 @@
 
             }
             if (memberRelation == 'Spouse') {
-                $(aLink).attr('class','spouse');
+                $(aLink).attr('class', 'spouse');
                 var toPrepend = $(sParent).find('a:first');
                 $(sParent).prepend(aLink);
                 $(sParent).prepend(toPrepend);
@@ -266,7 +323,7 @@
 
     function removeMember(member) {
         if ($(member).attr('data-relation') == 'Sibling') {
-            $(member).remove();
+            $(member).parent().remove();
         }
         if ($(member).attr('data-relation') == 'Child') {
             var cLen = $(member).parent().children('li').length;
@@ -277,13 +334,15 @@
             }
         }
         if ($(member).attr('data-relation') == 'Father') {
-            var child = $(member).children('ul');
-            var parent = $(member).parent().parent();
-            $(child).appendTo(parent);
-            $(member).parent().remove();
+                var child = $(member).children('ul');
+                var parent = $(member).parent().parent();
+                $(child).appendTo(parent);
+                $(member).remove();
         }
         if ($(member).attr('data-relation') == 'Spouse') {
             $(member).remove();
         }
     }
+
+
 }(jQuery));
