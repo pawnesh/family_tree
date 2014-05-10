@@ -7,7 +7,7 @@
 
 (function($) {
     var rootDiv = '';
-    var treeGround = '';
+    var treeGround = null;
     var newMemberForm = '';
     var memberName = '';
     var memberGender = '';
@@ -31,25 +31,126 @@
         if (rootDiv == null) {
             // error message in console
             jQuery.error('wrong id given');
+            return;
         }
         rootDiv = this;
         init();
     }
-    // function to send data to server
-    $.fn.pk_family_send = function(options) {
+
+    // function to create tree from json data
+    $.fn.pk_family_create = function(options) {
         if (rootDiv == null) {
             // error message in console
             jQuery.error('wrong id given');
             return;
         }
-        createSendURL();
+        rootDiv = this;
+        var settings = $.extend({
+            // These are the defaults.
+            data: "",
+        }, options);
+        var obj = jQuery.parseJSON(settings.data);
+        addBreadingGround();
+        parent = $('<ul>');
+        $(parent).appendTo(treeGround);
+        traverseObj(obj);
+
+        createNewMemberForm();
+        member_details();
+        createOptionsMenu();
+        document.oncontextmenu = function() {
+            return false;
+        };
+
+    }
+    function tempTest(obj) {
+        for (var i in obj) {
+            document.write(i + " &nbsp;");
+            if (i.indexOf('a') > -1 && i.length == 2) {
+                ;
+            } else {
+                tempTest(obj[i]);
+            }
+        }
+        return;
+    }
+    function traverseObj(obj) {
+
+        for (var i in obj) {
+            if (i.indexOf("li") > -1) {
+                var li = $('<li>');
+                $(li).appendTo(parent);
+                parent = li;
+                traverseObj(obj[i]);
+                return;
+            }
+            if (i.indexOf("a") > -1 && i.length == 2) {
+                var link = $('<a>');
+                link.attr('data-name', obj[i].name);
+                link.attr('data-age', obj[i].age);
+                link.attr('data-gender', obj[i].gender);
+                link.attr('data-relation', obj[i].relation);
+
+                var center = $('<center>').appendTo(link);
+                var pic = $('<img>').attr('src', obj[i].pic);
+                var extraData = "";
+                if (obj[i].gender == "Male") {
+                    extraData = "(M)";
+                } else {
+                    extraData = "(F)";
+                }
+                $(pic).appendTo(center);
+                $(center).append($('<br>'));
+                $('<span>').html(obj[i].name + " " + extraData).appendTo(center);
+                $(link).mousedown(function(event) {
+                    if (event.button == 2) {
+                        displayPopMenu(this, event);
+                        return false;
+                    }
+                    return true;
+                });
+                $(link).appendTo(parent);
+            }
+
+            if (i.indexOf("ul") > -1) {
+                var ul = $('<ul>');
+                $(ul).appendTo(parent);
+                parent = ul;
+                traverseObj(obj[i]);
+                return;
+            }
+        }
+        return;
+    }
+
+    // function to send data to server
+   $.send_Family =  $.fn.pk_family_send = function(options) {
+        if (rootDiv == null) {
+            // error message in console
+            jQuery.error('wrong id given');
+            return;
+        }
+        var settings = $.extend({
+            // These are the defaults.
+            url: "",
+        }, options);
+        var data = createSendURL();
+        data = data.replace(new RegExp(']', 'g'), ""); 
+        data = data.replace(new RegExp('\\[', 'g'), ""); 
+        console.log(data);
+        $.ajax({
+            url: settings.url + "?tree=" + data,
+        }).done(function() {
+            alert('completed');
+        });
     }
 
     function createSendURL() {
         rut = $(treeGround).find("ul:first");
         parent = object;
         object = createJson(rut);
-        alert(JSON.stringify(object));
+        return (JSON.stringify(object));
+
     }
 
     function createJson(root) {
@@ -303,6 +404,11 @@
         content = content + '<tr><td>Name</td><td>' + $(element).attr('data-name') + '</td></tr>';
         content = content + '<tr><td>Age</td><td>' + $(element).attr('data-age') + '</td></tr>';
         content = content + '<tr><td>Gender</td><td>' + $(element).attr('data-gender') + '</td></tr>';
+        if ($(element).attr('data-relation')) {
+            content = content + '<tr><td>Relation</td><td>' + $(element).attr('data-relation') + '</td></tr>';
+        } else {
+            content = content + '<tr><td>Relation</td><td>Self</td></tr>';
+        }
         content = content + '<tr><td colspan="2" style="text-align:center;"><img src="' + $(element).find('img').attr('src') + '"/></td></tr>';
         $(innerContent).html(content);
         $(memberDetails).append(innerContent);
@@ -334,10 +440,10 @@
             }
         }
         if ($(member).attr('data-relation') == 'Father') {
-                var child = $(member).children('ul');
-                var parent = $(member).parent().parent();
-                $(child).appendTo(parent);
-                $(member).remove();
+            var child = $(member).children('ul');
+            var parent = $(member).parent().parent();
+            $(child).appendTo(parent);
+            $(member).remove();
         }
         if ($(member).attr('data-relation') == 'Spouse') {
             $(member).remove();

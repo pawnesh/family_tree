@@ -35,3 +35,20 @@ How to:
      </script>
     ```
 4. Done. At start it will ask you for entering first member.
+------------------------------------------------------------
+To send data to tree to server:
+    ```html
+    $.send_Family({url: 'save_family.php'})
+    ```
+   here url is the server file where you want to send family tree
+Note: tree data will be in JSON format and will be send through GET method
+
+------------------------------------------------------------
+To display tree from preexist tree:
+    ```html    
+    $('#pk-family-tree').pk_family_create({
+             data: ''
+         });
+    ```
+
+Note: pk-family-tree must not be change
