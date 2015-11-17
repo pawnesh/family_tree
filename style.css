@@ -1,0 +1,239 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 20 Mar, 2014, 10:56:05 AM
+    Author     : poornendra
+*/
+
+#pk-memberForm {
+    background: url("images/back.png") repeat;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index:1000;
+    display:none;
+}
+#pk-member-details {
+    background: url("images/back.png") repeat;;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index:1000;
+    display:none;
+}
+#pk-member-details table {
+    background: none repeat scroll 0 0 #FFFFFF;
+    left: 34%;
+    padding: 30px;
+    position: relative;
+    top: 23%;
+    width: 461px;
+    box-shadow: 0 0 23px #4C4B4B;
+}
+#pk-member-details img{
+    height: 114px;
+}
+#pk-memberForm table {
+    background: none repeat scroll 0 0 #FFFFFF;
+    left: 34%;
+    padding: 30px;
+    position: relative;
+    top: 23%;
+    width: 461px;
+    box-shadow: 0 0 23px #4C4B4B;
+}
+#treeGround{
+    width: 10000px;
+    cursor:move;
+}
+.pk-cross{
+    left:34%;
+    top:23%;
+    padding-left:446px;
+    position: absolute;
+    z-index:10000;
+    cursor:pointer;
+}
+.member {
+    height: 107px;
+    overflow: hidden;
+    width: 113px;
+    border: 1px solid #969696;
+    position: absolute;
+}
+
+center img {
+    padding-top: 10px;
+    height:65px;
+}
+
+#pk-family-tree{
+    overflow:hidden;
+    height:500px;
+    width:1000px;
+}
+
+// copied code 
+/*Now the CSS*/
+* {margin: 0; padding: 0;}
+
+.tree-ground ul {
+    padding-top: 20px; position: relative;
+
+    transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    cursor: move;
+}
+
+.tree-ground li {
+    float: left; text-align: center;
+    list-style-type: none;
+    position: relative;
+    padding: 20px 5px 0 5px;
+
+    transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    cursor:pointer;
+}
+
+#pk-popmenu {
+    padding: 0;
+    width: 148px;
+    display:none;
+    position: absolute;
+}
+
+#pk-popmenu ul {
+    list-style: none outside none;
+    padding: 7px;
+    width: 136px;
+    border-color: #C4C4C4;
+    border-image: none;
+    border-right: 1px solid #C4C4C4;
+    border-style: solid;
+    border-width: 0 1px 1px;
+    padding: 0px;
+    padding-left: 0;
+    width: 136px;
+}
+
+#pk-popmenu ul li{
+    font-family: arial, verdana, tahoma;
+}
+#pk-popmenu ul li{
+    border-top: 1px solid #C4C4C4;
+    padding: 4px 0 4px 10px;
+    background: #DDDDDD;
+    color:#333333;
+    font-size: 13px;
+
+}
+#pk-popmenu ul li:hover{
+    background: #ACACAC;
+}
+
+.spouse:before {
+    border-top: 1px solid #CCCCCC;
+    content: "";
+    display: block;
+    left: -41px;
+    position: relative;
+    top: 99px;
+    width: 31px;
+}
+.spouse{
+    margin-left:28px;
+}
+/*
+ below css are from http://thecodeplayer.com/walkthrough/css3-family-tree
+*/
+/*We will use ::before and ::after to draw the connectors*/
+
+.tree-ground li::before, .tree-ground li::after{
+    content: '';
+    position: absolute; top: 0; right: 50%;
+    border-top: 1px solid #ccc;
+    width: 70%; height: 20px;
+}
+.tree-ground li::after{
+    right: auto; left: 30%;
+    border-left: 1px solid #ccc;
+}
+
+/*We need to remove left-right connectors from elements without 
+any siblings*/
+.tree-ground li:only-child::after, .tree-ground li:only-child::before {
+    display: none;
+}
+
+/*Remove space from the top of single children*/
+.tree-ground li:only-child{ padding-top: 0;}
+
+/*Remove left connector from first child and 
+right connector from last child*/
+.tree-ground li:first-child::before, .tree-ground li:last-child::after{
+    border: 0 none;
+}
+/*Adding back the vertical connector to the last nodes*/
+.tree-ground li:last-child::before{
+    border-right: 1px solid #ccc;
+    border-radius: 0 5px 0 0;
+    -webkit-border-radius: 0 5px 0 0;
+    -moz-border-radius: 0 5px 0 0;
+}
+.tree-ground li:first-child::after{
+    border-radius: 5px 0 0 0;
+    -webkit-border-radius: 5px 0 0 0;
+    -moz-border-radius: 5px 0 0 0;
+}
+
+/*Time to add downward connectors from parents*/
+.tree-ground ul ul::before{
+    content: '';
+    position: absolute; top: 0; left: 50%;
+    border-left: 1px solid #ccc;
+    width: 0; height: 20px;
+}
+
+.tree-ground li a{
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+    text-decoration: none;
+    color: #666;
+    font-family: arial, verdana, tahoma;
+    font-size: 11px;
+    display: inline-block;
+
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+
+    transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+}
+
+/*Time for some hover effects*/
+/*We will apply the hover effect the the lineage of the element also*/
+.tree-ground li a:hover, .tree-ground li a:hover+ul li a {
+    background: #c8e4f8; color: #000; border: 1px solid #94a0b4;
+}
+/*Connector styles on hover*/
+.tree-ground li a:hover+ul li::after, 
+.tree-ground li a:hover+ul li::before, 
+.tree-ground li a:hover+ul::before, 
+.tree-ground li a:hover+ul ul::before{
+    border-color:  #94a0b4;
+}
+
+/*Thats all. I hope you enjoyed it.
+Thanks :)*/
