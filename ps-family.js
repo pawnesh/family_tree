@@ -74,17 +74,15 @@
         }
         return;
     }
-
     function traverseObj(obj) {
+
         for (var i in obj) {
-			console.log(i+' '+mpn);
             if (i.indexOf("li") > -1) {
                 var li = $('<li>');
                 $(li).appendTo(parent);
                 parent = li;
                 traverseObj(obj[i]);
 				parent = $(parent).parent();
-				//return;
             }
             if (i.indexOf("a") > -1 && i.length == 2) {
                 var link = $('<a>');
@@ -95,7 +93,6 @@
 				if(obj[i].relation == 'Spouse'){
 					link.attr('class', 'spouse');
 				}
-
                 var center = $('<center>').appendTo(link);
                 var pic = $('<img>').attr('src', obj[i].pic);
                 var extraData = "";
@@ -125,7 +122,7 @@
                 return;
             }
         }
-       return;
+        return;
     }
 
     // function to send data to server
