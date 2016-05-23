@@ -356,7 +356,23 @@
         var sParent = $(selectedMember).parent(); // super parent
         if (selectedMember != null) {
             if (memberRelation == 'Mother') {
+				var parent = $(sParent).parent();
+                var parentParent = $(parent).parent();
+                var fatherElement = $(parentParent).find("a:first");
 
+                if(fatherElement.length == 0){
+					console.log('adding adajecent to father');
+					console.log(fatherElement);
+					var tmp = $(fatherElement).parent();
+					$(aLink).attr('class', 'mother');
+					$(tmp).append(aLink);
+				
+				}else{
+					console.log('adding mother alone');
+					var ul = $('<ul>').append(li);
+					$(parent).appendTo(li);
+					$(parentParent).append(ul);
+				}
             }
             if (memberRelation == 'Spouse') {
                 $(aLink).attr('class', 'spouse');
