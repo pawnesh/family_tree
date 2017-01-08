@@ -78,9 +78,9 @@ center img {
     overflow:hidden;
     height:500px;
     width:1000px;
+    border: 1px solid #969696;
 }
 
-// copied code 
 /*Now the CSS*/
 * {margin: 0; padding: 0;}
 
@@ -110,6 +110,7 @@ center img {
     width: 148px;
     display:none;
     position: absolute;
+    z-index: 15;
 }
 
 #pk-popmenu ul {
@@ -132,13 +133,13 @@ center img {
 #pk-popmenu ul li{
     border-top: 1px solid #C4C4C4;
     padding: 4px 0 4px 10px;
-    background: #DDDDDD;
+    background: #FFF;
     color:#333333;
     font-size: 13px;
-
+    cursor: pointer;
 }
 #pk-popmenu ul li:hover{
-    background: #ACACAC;
+    color: #ACACAC;
 }
 
 .spouse:before {
@@ -147,7 +148,7 @@ center img {
     display: block;
     left: -41px;
     position: relative;
-    top: 95px;
+    top: 106px;
     width: 31px;
 }
 .spouse{
@@ -212,6 +213,7 @@ right connector from last child*/
     font-family: arial, verdana, tahoma;
     font-size: 11px;
     display: inline-block;
+    text-align: right;
 
     border-radius: 5px;
     -webkit-border-radius: 5px;
@@ -222,6 +224,14 @@ right connector from last child*/
     -moz-transition: all 0.5s;
 }
 
+#treeGround li a span.fa-close {
+    margin-right: -4px;
+    visibility: hidden;
+}
+
+#treeGround li a:hover span.fa-close {
+    visibility: visible;
+}
 /*Time for some hover effects*/
 /*We will apply the hover effect the the lineage of the element also*/
 .tree-ground li a:hover, .tree-ground li a:hover+ul li a {
@@ -237,3 +247,7 @@ right connector from last child*/
 
 /*Thats all. I hope you enjoyed it.
 Thanks :)*/
+
+#pkMemberForm{
+    display:none;
+}
