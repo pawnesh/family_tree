@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Jquery plugin for family tree | another way around</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width"/>
+        <link rel="stylesheet" href="jquery-ui.css"/>
+        <script src="jquery-1.11.0.js"></script>
+        <script src="jquery-ui.js"></script>
+        <script src="ps-family.js"></script>
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="style.css"/>
+    </head>
+    <body>
+       
+        <input type="button" id="sendData" value="send data" onclick="$.send_Family({url: 'save_family.php'})"/>
+         <a href="https://icons8.com">Icon pack by Icons8</a>
+        <div id="pk-family-tree">
+        </div>
+        <script>
+            //~ var pkFamily = $('#pk-family-tree').pk_family({referenceVar:'pkFamily'});
+            setTimeout(function() {
+var family_mem = [];
+family_mem.push({id: 0, name: "test one", gender: "M", age: "34", pic: "img/profile.png"});
+var pkFamily = $('#pk-family-tree').pk_family({referenceVar:'pkFamily', family: family_mem});
+}, 1000);
+          /*  $('#pk-family-tree').pk_family_create(
+             {
+             data: '{"li0":{"a0":{"name":"1","age":"wewe","gender":"Male","pic":"images/profile.png"},"a1":{"name":"2","age":"23","gender":"Female","relation":"Spouse","pic":"images/profile-f.png"},"ul":{"li0":{"a0":{"name":"3","age":"34","gender":"Male","relation":"Child","pic":"images/profile.png"}},"li1":{"a0":{"name":"4","age":"34","gender":"Female","relation":"Child","pic":"images/profile-f.png"}}}}}'
+             }
+             );*/
+           
+        </script>
+    </body>
+</html>

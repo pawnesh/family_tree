@@ -31,6 +31,9 @@
         if (options.referenceVar) {
             this.referenceVar = options.referenceVar;
         }
+        if (options.family) {
+            this.family = options.family;
+        }
         return this;
     }
     pwnFamily.prototype = {
@@ -42,7 +45,7 @@
             this.createNewMemberForm();
 
 
-            this.inintalizeBlankFamily();
+            //~ this.inintalizeBlankFamily();
 
             if (this.family.length > 0) { // if family already exist then render it
                 this.refershFamily();
@@ -52,9 +55,9 @@
             }
         },
         refershFamily: function () {
-            console.log(this.family);
+            //~ console.log(this.family);
             this.oldestMemberId = this.getOldestMemberId(0);
-            console.log(this.oldestMemberId);
+            //~ console.log(this.oldestMemberId);
             var html = "<ul>" + this.renderFamily(this.family[this.oldestMemberId]) + "</ul>";
             $(this.treeGround).html(html);
         },
