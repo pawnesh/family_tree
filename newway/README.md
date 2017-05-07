@@ -46,8 +46,11 @@ Note: tree data will be in JSON format and will be send through GET method
 6. To display tree from preexist tree:
     ```html    
     var family_mem = [];
-family_mem.push({id: 0, name: "test one", gender: "M", age: "34", pic: "img/profile.png"});
-var pkFamily = $('#pk-family-tree').pk_family({referenceVar:'pkFamily', family: family_mem});
     ```
-
+    ```html
+     family_mem.push({id: 0, name: "test one", gender: "M", age: "34", pic: "img/profile.png"});
+   ```
+   ```html
+     var pkFamily = $('#pk-family-tree').pk_family({referenceVar:'pkFamily', family: family_mem});
+   ```
 Note: referenceVar is the variable name you assign. in our case "var pkFamily" it is
