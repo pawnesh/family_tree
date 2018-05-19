@@ -24,10 +24,11 @@ and open the template in the editor.
         </div>
         <script>
             //~ var pkFamily = $('#pk-family-tree').pk_family({referenceVar:'pkFamily'});
+            var pkFamily = null;
             setTimeout(function() {
 var family_mem = [];
 family_mem.push({id: 0, name: "test one", gender: "M", age: "34", pic: "img/profile.png"});
-var pkFamily = $('#pk-family-tree').pk_family({referenceVar:'pkFamily', family: family_mem});
+pkFamily = $('#pk-family-tree').pk_family({referenceVar:'pkFamily', family: family_mem});
 }, 1000);
           /*  $('#pk-family-tree').pk_family_create(
              {

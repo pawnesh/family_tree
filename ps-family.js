@@ -139,9 +139,10 @@
         var data = createSendURL();
         data = data.replace(new RegExp(']', 'g'), ""); 
         data = data.replace(new RegExp('\\[', 'g'), ""); 
-        console.log(data);
-        $.ajax({
-            url: settings.url + "?tree=" + data,
+        jQuery.ajax({
+            type: 'POST',
+            url: settings.url,
+            data: {"tree":data}
         }).done(function() {
             alert('completed');
         });
