@@ -85,4 +85,4 @@ var family = [
 ];
 
 var drawer = new FamilyTree(family);
-drawer.render();
+drawer.render(document.getElementById('draw'));

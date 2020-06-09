@@ -1,0 +1,57 @@
+.family-node{
+    border: 1px solid #ccc;
+    padding: 10px;
+    min-height: 50px;
+    position: absolute;
+    text-decoration: none;
+    color: #333;
+    font-size: 11px;
+    text-align: center;
+    border-radius: 3px;
+}
+
+.family-node img{
+    width: 95%;
+}
+
+.family-node .name {
+    margin-top: 18px;
+    text-transform: capitalize;
+}
+
+.footer{
+    font-size: 10px;
+}
+.full-height{
+    height: 100vh;
+}
+
+.family-node .info li{
+    list-style: none;
+    min-width: 100px;
+    border-bottom: 1px solid #CCC;
+    padding: 10px;
+    text-align: left;
+}
+.family-node .info ul{
+    list-style: none;
+    margin-left: 0;
+    padding-left: 0;
+    padding: 0;
+    margin: 0;
+}
+    
+.family-node .info {
+    position: absolute;
+    list-style: none;
+    top: 0;
+    left: 84px;
+    background: #FFF;
+    border: 1px solid#ccc;
+    display:none;
+    z-index: 1000;
+}
+
+.family-node:hover .info{
+    display:block;
+}
