@@ -45,7 +45,7 @@
     position: absolute;
     list-style: none;
     top: 0;
-    left: 84px;
+    left: 96px;
     background: #FFF;
     border: 1px solid#ccc;
     display:none;
@@ -54,4 +54,32 @@
 
 .family-node:hover .info{
     display:block;
+}
+
+.family-tree-row{
+    height: 15px;
+    width: 15px;
+    position: absolute;
+}
+.family-tree-row-left{
+    border-top-left-radius: 4px;
+    border-top: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+}
+
+.family-tree-row-right{
+    border-top-right-radius: 4px;
+    border-top: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+}
+
+.family-tree-col{
+    height: 15px;
+    width: 15px;
+    position: absolute;
+    border-left: 1px solid #ccc;
+}
+
+.family-tree-plain-row{
+    border-top: 1px solid #ccc;
 }

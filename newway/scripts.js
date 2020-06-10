@@ -84,5 +84,17 @@ var family = [
     }
 ];
 
-var drawer = new FamilyTree(family);
+var initFamily = [
+    {
+        "name": "Edit Me",
+        "age": 25,
+        "gender": "m",
+        "image": null,
+        "children": [],
+        "parent": [],
+        "spouse": []
+    }
+];
+
+var drawer = new FamilyTree(initFamily);
 drawer.render(document.getElementById('draw'));
